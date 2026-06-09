@@ -1,6 +1,7 @@
 package com.armaan.product_service.service;
 
 import com.armaan.product_service.dao.ProductDao;
+import com.armaan.product_service.dto.ProductIdRequest;
 import com.armaan.product_service.dto.ProductRequest;
 import com.armaan.product_service.mapper.ProductMapper;
 import com.armaan.product_service.model.Product;
@@ -32,5 +33,9 @@ public class ProductService {
     public ResponseEntity<Product> addProduct(ProductRequest productRequest) {
         Product product = productMapper.toEntity(productRequest);
         return new ResponseEntity<>(productDao.save(product), HttpStatus.CREATED);
+    }
+
+    public ResponseEntity<Product> getProductById(ProductIdRequest productIdRequest) {
+        return new ResponseEntity<>(productDao.findByProductId(productIdRequest.getProductId()), HttpStatus.OK);
     }
 }

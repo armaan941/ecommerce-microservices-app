@@ -1,5 +1,6 @@
 package com.armaan.product_service.controller;
 
+import com.armaan.product_service.dto.ProductIdRequest;
 import com.armaan.product_service.dto.ProductRequest;
 import com.armaan.product_service.model.Product;
 import com.armaan.product_service.service.ProductService;
@@ -24,6 +25,11 @@ public class ProductController {
     @PostMapping("/add-product")
     public ResponseEntity<Product> addProduct(@RequestBody ProductRequest productRequest) {
         return productService.addProduct(productRequest);
+    }
+
+    @PostMapping("/get-product")
+    public ResponseEntity<Product> getProductById(@RequestBody ProductIdRequest productIdRequest) {
+        return productService.getProductById(productIdRequest);
     }
 
 }
