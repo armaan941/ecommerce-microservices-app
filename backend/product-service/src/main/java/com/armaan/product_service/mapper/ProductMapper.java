@@ -1,7 +1,9 @@
 package com.armaan.product_service.mapper;
 
+import com.armaan.product_service.dto.CategoryResponse;
 import com.armaan.product_service.dto.ProductRequest;
 import com.armaan.product_service.dto.ProductResponse;
+import com.armaan.product_service.model.Category;
 import com.armaan.product_service.model.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -19,5 +21,10 @@ public interface ProductMapper {
     ProductResponse toResponse(Product product);
 
     List<ProductResponse> toResponseList(List<Product> products);
+
+    @Mapping(source = "parentCategory.categoryName", target = "parentCategoryName")
+    CategoryResponse toCategoryResponse(Category category);
+
+    List<CategoryResponse> toCategoryResponseList(List<Category> categories);
 
 }

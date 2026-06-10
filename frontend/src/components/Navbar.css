@@ -1,0 +1,5 @@
+.category-dropdown .dropdown-menu {
+  max-height: 70vh;
+  overflow-y: auto;
+  min-width: 300px;
+}
