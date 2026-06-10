@@ -1,24 +1,18 @@
-package com.armaan.product_service.model;
+package com.armaan.product_service.dto;
 
-import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
+public class ProductResponse {
     private String productId;
     private String productName;
     private String productDescription;
     private Double productPrice;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private Category category;
     private Integer productStock;
+    private String categoryName;
+    private String parentCategoryName;
 }

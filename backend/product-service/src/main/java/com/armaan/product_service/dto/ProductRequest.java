@@ -1,5 +1,6 @@
 package com.armaan.product_service.dto;
 
+import com.armaan.product_service.model.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,9 +9,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ProductRequest {
+
     private String productName;
     private String productDescription;
     private Double productPrice;
-    private String productCategory;
+    private Integer categoryId;
     private Integer productStock;
+
 }
