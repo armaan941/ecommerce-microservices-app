@@ -2,6 +2,7 @@ package com.armaan.product_service.service;
 
 import com.armaan.product_service.dao.CategoryDao;
 import com.armaan.product_service.dao.ProductDao;
+import com.armaan.product_service.dto.CategoryIdRequest;
 import com.armaan.product_service.dto.ProductIdRequest;
 import com.armaan.product_service.dto.ProductRequest;
 import com.armaan.product_service.dto.ProductResponse;
@@ -63,4 +64,15 @@ public class ProductService {
         return new ResponseEntity<>(productResponse, HttpStatus.OK);
     }
 
+    public ResponseEntity<List<ProductResponse>> getProductsByCategoryId(CategoryIdRequest categoryIdRequest) {
+
+        List<Product> products = productDao.findAllByCategory_CategoryId(categoryIdRequest.getCategoryId());
+        List<ProductResponse> productResponses = new ArrayList<>();
+        for (Product product : products) {
+            ProductResponse response = productMapper.toResponse(product);
+            productResponses.add(response);
+        }
+
+        return new ResponseEntity<>(productResponses, HttpStatus.OK);
+    }
 }

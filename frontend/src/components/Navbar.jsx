@@ -8,7 +8,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Navbar.css";
 
-function NavbarComponent() {
+function NavbarComponent({ setProducts }) {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -24,6 +24,33 @@ function NavbarComponent() {
   const getChildren = (parentName) =>
     categories.filter((c) => c.parentCategoryName === parentName);
 
+  const handleCategoryClick = async (categoryId) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/product/get-products-by-category",
+        {
+          categoryId: categoryId,
+        },
+      );
+
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleHomeClick = async () => {
+    try {
+      const response = await axios.get(
+        "http://localhost:8080/api/product/get-products",
+      );
+
+      setProducts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container fluid>
@@ -35,7 +62,7 @@ function NavbarComponent() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link onClick={handleHomeClick}>Home</Nav.Link>
 
             <NavDropdown
               title="Categories"
@@ -48,7 +75,10 @@ function NavbarComponent() {
                   <NavDropdown.Header>{parent.categoryName}</NavDropdown.Header>
 
                   {getChildren(parent.categoryName).map((child) => (
-                    <NavDropdown.Item key={child.categoryId}>
+                    <NavDropdown.Item
+                      key={child.categoryId}
+                      onClick={() => handleCategoryClick(child.categoryId)}
+                    >
                       {child.categoryName}
                     </NavDropdown.Item>
                   ))}
